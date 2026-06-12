@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
 
 export default function SynapticCore() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,30 +44,42 @@ export default function SynapticCore() {
 
     // 3. Create Instanced Mesh for Liquid Metal Swarm
     const numParticles = 600; // Lowered density
-    
+
     // We use a low-poly geometry (tetrahedron) to look like nanobots or metallic shards
     const geometry = new THREE.TetrahedronGeometry(0.04, 0); // Slightly smaller
-    
+
     const material = new THREE.MeshStandardMaterial({
       color: 0xffffff,
-      emissive: 0x050505,
+      emissive: 0x333333,
       metalness: 0.9,
-      roughness: 0.15,
+      roughness: 0.1,
       transparent: true,
-      opacity: 0.8,
+      opacity: 1.0,
     });
 
-    const instancedMesh = new THREE.InstancedMesh(geometry, material, numParticles);
+    const instancedMesh = new THREE.InstancedMesh(
+      geometry,
+      material,
+      numParticles,
+    );
     instancedMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     scene.add(instancedMesh);
 
     // Keep track of physics states for each particle
     const particles: {
       id: number;
-      x: number; y: number; z: number;
-      vx: number; vy: number; vz: number;
-      tx: number; ty: number; tz: number; // Target base position
-      rx: number; ry: number; rz: number;
+      x: number;
+      y: number;
+      z: number;
+      vx: number;
+      vy: number;
+      vz: number;
+      tx: number;
+      ty: number;
+      tz: number; // Target base position
+      rx: number;
+      ry: number;
+      rz: number;
     }[] = [];
 
     const dummy = new THREE.Object3D();
@@ -86,14 +98,22 @@ export default function SynapticCore() {
 
       particles.push({
         id: Math.random() * 1000,
-        x, y, z,
-        vx: 0, vy: 0, vz: 0,
-        tx: x, ty: y, tz: z,
-        rx: Math.random() * Math.PI, ry: Math.random() * Math.PI, rz: Math.random() * Math.PI,
+        x,
+        y,
+        z,
+        vx: 0,
+        vy: 0,
+        vz: 0,
+        tx: x,
+        ty: y,
+        tz: z,
+        rx: Math.random() * Math.PI,
+        ry: Math.random() * Math.PI,
+        rz: Math.random() * Math.PI,
       });
 
-      // Rainbowish refraction colors (subtle pastel metallic hues)
-      tempColor.setHSL(Math.random(), 0.5, 0.75);
+      // Vibrant rainbowish refraction colors
+      tempColor.setHSL(Math.random(), 0.9, 0.65);
       instancedMesh.setColorAt(i, tempColor);
 
       dummy.position.set(x, y, z);
@@ -102,7 +122,8 @@ export default function SynapticCore() {
     }
 
     instancedMesh.instanceMatrix.needsUpdate = true;
-    if (instancedMesh.instanceColor) instancedMesh.instanceColor.needsUpdate = true;
+    if (instancedMesh.instanceColor)
+      instancedMesh.instanceColor.needsUpdate = true;
 
     // 4. Track Mouse / Cursor Interactions
     let targetX = 0;
@@ -123,8 +144,8 @@ export default function SynapticCore() {
       targetY = 0;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
 
     // 5. Animation Loop
     let animationFrameId: number;
@@ -171,13 +192,14 @@ export default function SynapticCore() {
           const distSq = dx * dx + dy * dy + dz * dz;
           const dist = Math.sqrt(distSq);
 
-          const magneticRadius = 2.5; // The void radius around the cursor
+          const magneticRadius = 4.0; // The void radius around the cursor
 
           if (dist < magneticRadius) {
-            // Very subtle and slow repulsion formula
-            const pushStrength = Math.pow(1.0 - dist / magneticRadius, 2.0) * 0.015;
-            
-            // Notice the negative sign to push away gently
+            // Obvious and strong repulsion formula
+            const pushStrength =
+              Math.pow(1.0 - dist / magneticRadius, 2.0) * 0.15;
+
+            // Push away strongly
             forceX += -dx * pushStrength;
             forceY += -dy * pushStrength;
             forceZ += -dz * pushStrength;
@@ -212,7 +234,7 @@ export default function SynapticCore() {
         // Apply to dummy object
         dummy.position.set(p.x, p.y, p.z);
         dummy.rotation.set(p.rx, p.ry, p.rz);
-        
+
         // Optional: scale them slightly when moving fast to look like they are stretching
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy + p.vz * p.vz);
         const scale = Math.max(0.5, 1.0 - speed * 0.5);
@@ -246,14 +268,14 @@ export default function SynapticCore() {
     // 7. Cleanup WebGL Context
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
       resizeObserver.disconnect();
-      
+
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
-      
+
       geometry.dispose();
       material.dispose();
       renderer.dispose();
@@ -263,8 +285,8 @@ export default function SynapticCore() {
   const customCursor = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none' stroke='%2306b6d4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='16' cy='16' r='6'/><path d='M16 4v6M16 22v6M4 16h6M22 16h6'/></svg>") 16 16, auto`;
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className="w-full h-full min-h-[300px] flex items-center justify-center relative pointer-events-none"
       style={{ cursor: customCursor }}
     />
