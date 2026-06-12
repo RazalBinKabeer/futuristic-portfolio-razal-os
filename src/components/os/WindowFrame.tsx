@@ -13,7 +13,7 @@ interface WindowFrameProps {
 export default function WindowFrame({ id, children }: WindowFrameProps) {
   const windowState = useOSStore((state) => state.windows[id]);
   const activeWindowId = useOSStore((state) => state.activeWindowId);
-  
+
   const closeWindow = useOSStore((state) => state.closeWindow);
   const minimizeWindow = useOSStore((state) => state.minimizeWindow);
   const maximizeWindow = useOSStore((state) => state.maximizeWindow);
@@ -21,7 +21,8 @@ export default function WindowFrame({ id, children }: WindowFrameProps) {
 
   const dragControls = useDragControls();
 
-  if (!windowState || !windowState.isOpen || windowState.isMinimized) return null;
+  if (!windowState || !windowState.isOpen || windowState.isMinimized)
+    return null;
 
   const isActive = activeWindowId === id;
 
@@ -41,28 +42,35 @@ export default function WindowFrame({ id, children }: WindowFrameProps) {
           position: "fixed",
           left: windowState.isMaximized ? "0px" : `${windowState.position.x}px`,
           top: windowState.isMaximized ? "0px" : `${windowState.position.y}px`,
-          width: windowState.isMaximized ? "100vw" : `${windowState.size.width}px`,
-          height: windowState.isMaximized ? "100vh" : `${windowState.size.height}px`,
+          width: windowState.isMaximized
+            ? "100vw"
+            : `${windowState.size.width}px`,
+          height: windowState.isMaximized
+            ? "100vh"
+            : `${windowState.size.height}px`,
           zIndex: windowState.zIndex,
+          backdropFilter: "blur(16px) saturate(180%)",
         }}
         className={`flex flex-col glass-panel rounded-lg overflow-hidden border transition-colors duration-200 pointer-events-auto ${
-          isActive 
-            ? "border-color-accent-indigo shadow-[0_12px_40px_rgba(99,102,241,0.15)]" 
+          isActive
+            ? "border-color-accent-indigo shadow-[0_12px_40px_rgba(99,102,241,0.15)]"
             : "border-color-border-muted shadow-[0_8px_32px_rgba(0,0,0,0.37)]"
         }`}
       >
         {/* Window Top Title / Drag Bar */}
-        <div 
+        <div
           onPointerDown={(e) => {
             dragControls.start(e);
           }}
           className={`window-drag-bar h-10 px-4 flex items-center justify-between border-b cursor-grab active:cursor-grabbing select-none ${
-            isActive ? "bg-white/[0.03] border-color-border-active" : "bg-black/[0.08] border-color-border-muted"
+            isActive
+              ? "bg-white/[0.03] border-color-border-active"
+              : "bg-black/[0.08] border-color-border-muted"
           }`}
         >
           {/* OS Window Traffic Lights Controls */}
           <div className="flex items-center gap-2">
-            <button 
+            <button
               onClick={(e) => {
                 e.stopPropagation();
                 closeWindow(id);
@@ -72,7 +80,7 @@ export default function WindowFrame({ id, children }: WindowFrameProps) {
             >
               <X className="w-2 h-2 text-red-950 opacity-0 group-hover:opacity-100" />
             </button>
-            <button 
+            <button
               onClick={(e) => {
                 e.stopPropagation();
                 minimizeWindow(id);
@@ -82,7 +90,7 @@ export default function WindowFrame({ id, children }: WindowFrameProps) {
             >
               <Minus className="w-2 h-2 text-yellow-950 opacity-0 group-hover:opacity-100" />
             </button>
-            <button 
+            <button
               onClick={(e) => {
                 e.stopPropagation();
                 maximizeWindow(id);
@@ -104,7 +112,10 @@ export default function WindowFrame({ id, children }: WindowFrameProps) {
         </div>
 
         {/* Window Body Container */}
-        <div className="flex-grow overflow-auto bg-black/[0.1] text-text-secondary relative" data-lenis-prevent>
+        <div
+          className="flex-grow overflow-auto bg-black/[0.1] text-text-secondary relative"
+          data-lenis-prevent
+        >
           {children}
         </div>
       </motion.div>
