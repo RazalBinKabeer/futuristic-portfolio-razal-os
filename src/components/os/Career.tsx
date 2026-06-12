@@ -1,6 +1,7 @@
 "use client";
 
 import { Calendar, Briefcase, ExternalLink, MapPin } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface ProjectDetail {
   name: string;
@@ -132,7 +133,14 @@ export default function Career() {
 
       <div className="relative border-l border-white/10 pl-6 ml-3 flex flex-col gap-8">
         {experiences.map((exp, idx) => (
-          <div key={idx} className="relative group">
+          <motion.div 
+            key={idx} 
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="relative group"
+          >
             {/* Timeline Dot */}
             <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-bg-dark border-2 border-color-accent-indigo flex items-center justify-center group-hover:scale-125 transition-transform duration-200">
               <div className="w-1.5 h-1.5 rounded-full bg-color-accent-cyan animate-pulse" />
@@ -184,7 +192,7 @@ export default function Career() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

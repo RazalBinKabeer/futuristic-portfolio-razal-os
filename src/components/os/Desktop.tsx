@@ -307,8 +307,12 @@ export default function Desktop() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {projectsData.map((project, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
+                    initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-10px" }}
+                    transition={{ duration: 0.4, delay: (idx % 2) * 0.1 }}
                     className="glass-panel p-5 flex flex-col gap-3 hover:border-color-accent-indigo hover:bg-white/[0.03] transition-colors duration-200"
                   >
                     <span className="font-mono text-[10px] text-color-accent-cyan">
@@ -330,7 +334,7 @@ export default function Desktop() {
                         Live Website <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -384,7 +388,13 @@ export default function Desktop() {
                   real-time socket interfaces.
                 </p>
 
-                <div className="glass-panel p-3 flex flex-col gap-1.5 font-mono text-[10px]">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
+                  className="glass-panel p-3 flex flex-col gap-1.5 font-mono text-[10px]"
+                >
                   <div className="text-color-accent-cyan mb-0.5 border-b border-white/5 pb-0.5">
                     ACADEMIC_LOGS
                   </div>
@@ -398,9 +408,15 @@ export default function Desktop() {
                     <span>University:</span>
                     <span className="text-white">Calicut University</span>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="glass-panel p-4 flex flex-col gap-2 font-mono">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  className="glass-panel p-4 flex flex-col gap-2 font-mono"
+                >
                   <div className="text-[10px] text-color-accent-orange mb-1 border-b border-white/5 pb-1">
                     COMMUNICATION_CHANNELS
                   </div>
@@ -461,7 +477,7 @@ export default function Desktop() {
                       /in/razal-bin-kabeer <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </WindowFrame>

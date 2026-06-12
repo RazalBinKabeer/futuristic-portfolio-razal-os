@@ -1,6 +1,7 @@
 "use client";
 
 import { Award, Code2, Cpu, Database, ClipboardList, Settings } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface Skill {
   name: string;
@@ -87,7 +88,14 @@ export default function SkillsMatrix() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {category.skills.map((skill, sIdx) => (
-                  <div key={sIdx} className="glass-panel p-4 flex flex-col gap-2">
+                  <motion.div 
+                    key={sIdx} 
+                    initial={{ opacity: 0, x: sIdx % 2 === 0 ? -30 : 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-10px" }}
+                    transition={{ duration: 0.4, delay: (sIdx % 2) * 0.1 }}
+                    className="glass-panel p-4 flex flex-col gap-2"
+                  >
                     <div className="flex justify-between text-xs font-mono text-text-secondary">
                       <span>{skill.name}</span>
                       <span className="text-color-accent-cyan font-bold">{skill.level}%</span>
@@ -99,7 +107,7 @@ export default function SkillsMatrix() {
                         className={`h-full bg-gradient-to-r ${skill.color} rounded-full`}
                       />
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
