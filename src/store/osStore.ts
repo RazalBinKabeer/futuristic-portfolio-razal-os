@@ -79,7 +79,7 @@ const defaultWindows: Record<string, WindowState> = {
   },
   skills: {
     id: "skills",
-    title: "Skills Matrix / capability_core.log",
+    title: "Skills Matrix // capability_core.log",
     isOpen: false,
     isMinimized: false,
     isMaximized: false,
