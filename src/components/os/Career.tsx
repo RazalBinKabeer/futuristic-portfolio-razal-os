@@ -163,7 +163,7 @@ export default function Career() {
             <div className="flex flex-col gap-4 mt-2">
               {exp.projects.map((proj, pIdx) => (
                 <div key={pIdx} className="glass-panel p-4 rounded-lg flex flex-col gap-2 hover:border-white/10 transition-colors duration-200">
-                  <div className="flex items-center justify-between gap-2 border-b border-white/5 pb-1.5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-1.5">
                     <span className="text-xs font-semibold text-white font-mono flex items-center gap-1">
                       {proj.name}
                       {proj.link && (
@@ -172,7 +172,7 @@ export default function Career() {
                         </a>
                       )}
                     </span>
-                    <span className="text-[9px] font-mono text-color-accent-cyan bg-color-accent-cyan/10 border border-color-accent-cyan/10 px-1.5 py-0.2 rounded">
+                    <span className="text-[9px] font-mono text-color-accent-cyan bg-color-accent-cyan/10 border border-color-accent-cyan/10 px-1.5 py-0.5 rounded sm:text-right w-fit">
                       {proj.tech}
                     </span>
                   </div>

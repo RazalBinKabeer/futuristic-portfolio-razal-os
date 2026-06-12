@@ -28,7 +28,7 @@ interface OSStore {
   maxZIndex: number;
 
   // System Actions
-  bootOS: () => void;
+  bootOS: (isMobile?: boolean) => void;
   incrementBootSequence: () => void;
   openWindow: (id: string, viewportWidth?: number, viewportHeight?: number) => void;
   closeWindow: (id: string) => void;
@@ -135,14 +135,27 @@ export const useOSStore = create<OSStore>((set, get) => ({
     {
       command: "systemctl boot",
       output:
-        'Razal.OS v1.0.0 booting up...\nResolving synaptic core bindings...\nAll systems operational.\nType "help" to list available actions.',
+        'Razal.OS v1.0.0 booting up...\nWelcome to the interactive portfolio of Mohamed Razal Kabeer.\nAll systems operational.\nType "help" to list available actions.',
       timestamp: "15:51:24",
     },
   ],
   bootSequenceIndex: 0,
   maxZIndex: 10,
-
-  bootOS: () => set({ booted: true }),
+  bootOS: (isMobile?: boolean) =>
+    set((state) => {
+      if (isMobile) {
+        return {
+          booted: true,
+          windows: {
+            ...state.windows,
+            terminal: { ...state.windows.terminal, isOpen: false },
+          },
+          activeWindowId:
+            state.activeWindowId === "terminal" ? null : state.activeWindowId,
+        };
+      }
+      return { booted: true };
+    }),
 
   incrementBootSequence: () =>
     set((state) => ({
