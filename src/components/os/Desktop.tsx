@@ -13,6 +13,7 @@ import Career from "./Career";
 import Certifications from "./Certifications";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useDevice } from "@/hooks/useDevice";
 import {
   Terminal as TermIcon,
   Activity,
@@ -35,6 +36,8 @@ export default function Desktop() {
   const openWindow = useOSStore((state) => state.openWindow);
   const booted = useOSStore((state) => state.booted);
   const bootOS = useOSStore((state) => state.bootOS);
+  const device = useDevice();
+  const isMobile = device === "mobile";
 
   // Desktop shortcuts arranged in a horizontal row at the top
   const desktopShortcuts = [
@@ -150,14 +153,15 @@ export default function Desktop() {
           </div>
           <div className="flex flex-col gap-2">
             <h1 className="h2 text-lg tracking-wider text-white">
-              RAZAL // COGNITIVE ENGINE
+              MOHAMED RAZAL KABEER
             </h1>
             <p className="text-text-muted">
-              Razal OS is ready to synchronize. Run initial boot diagnostics.
+              Interactive Frontend Engineering Portfolio. Run initial boot
+              diagnostics to enter.
             </p>
           </div>
           <button
-            onClick={bootOS}
+            onClick={() => bootOS(isMobile)}
             className="w-full mt-2 px-6 py-3 bg-white text-bg-dark rounded-lg font-semibold hover:bg-neutral-200 transition-colors duration-200 cursor-pointer shadow-lg"
           >
             BOOT RAZAL OS
@@ -171,7 +175,7 @@ export default function Desktop() {
 
   return (
     <div
-      className="relative w-screen h-screen overflow-hidden bg-bg-dark p-6"
+      className="fixed inset-0 w-full h-[100dvh] overflow-hidden bg-bg-dark p-6"
       style={{ cursor: customCursor }}
     >
       {/* 1. Backdrop Grid, Bouncing Tech Logos, and 3D WebGL Core */}
@@ -179,11 +183,13 @@ export default function Desktop() {
         <div className="ambient-grid h-full w-full" />
 
         {/* Giant Watermark Background Text */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-          <span className="font-sans font-extrabold text-[13vw] tracking-tighter text-white/[0.035] blur-[1px] leading-none uppercase">
-            Razal.0S
-          </span>
-        </div>
+        {!isMobile && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+            <span className="font-sans font-extrabold text-[12vw] tracking-tighter text-white/[0.035] blur-[1px] leading-none uppercase">
+              RAZAL.OS
+            </span>
+          </div>
+        )}
 
         <FloatingLogos />
         <div className="absolute inset-0 w-full h-full opacity-60">
@@ -191,25 +197,49 @@ export default function Desktop() {
         </div>
       </div>
 
-      {/* 2. Desktop Shortcut Icons Grid - Arranged horizontally (Row-wise) */}
-      <div className="absolute top-6 left-6 right-6 z-10 flex flex-row flex-wrap gap-4 md:gap-6 pointer-events-auto justify-start items-start">
+      {/* 2. Desktop Shortcut Icons Grid */}
+      <div
+        className={`absolute top-6 left-6 right-6 z-10 flex flex-row flex-wrap pointer-events-auto items-start ${
+          isMobile
+            ? "gap-6 justify-center mt-6"
+            : "gap-4 md:gap-6 justify-start"
+        }`}
+      >
         {desktopShortcuts.map((shortcut) => {
           const ShortcutIcon = shortcut.icon;
           return (
             <motion.button
               key={shortcut.id}
-              onClick={() => openWindow(shortcut.id, window.innerWidth, window.innerHeight)}
+              onClick={() =>
+                openWindow(shortcut.id, window.innerWidth, window.innerHeight)
+              }
               whileHover={{ scale: 1.08, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="group flex flex-col items-center justify-center gap-2 w-24 h-24 rounded-xl bg-white/[0.02] border border-white/[0.04] backdrop-blur-[4px] hover:bg-white/[0.08] hover:border-color-accent-indigo/40 hover:shadow-[0_0_20px_rgba(99,102,241,0.2)] transition-all duration-200 cursor-pointer text-center select-none shadow-lg"
+              className={`group flex flex-col items-center justify-center gap-2 rounded-xl backdrop-blur-[4px] hover:bg-white/[0.08] hover:border-color-accent-indigo/40 hover:shadow-[0_0_20px_rgba(99,102,241,0.2)] transition-all duration-200 cursor-pointer text-center select-none shadow-lg ${
+                isMobile
+                  ? "w-20 h-20 bg-transparent border-transparent"
+                  : "w-24 h-24 bg-white/[0.02] border border-white/[0.04]"
+              }`}
             >
-              <div className="w-11 h-11 flex items-center justify-center rounded-lg bg-black/40 border border-white/5 group-hover:border-color-accent-cyan/30 group-hover:bg-black/60 transition-all duration-200 shadow-md">
+              <div
+                className={`flex items-center justify-center transition-all duration-200 shadow-md ${
+                  isMobile
+                    ? "w-14 h-14 rounded-[1.2rem] bg-gradient-to-tr from-white/10 to-white/5 border border-white/20"
+                    : "w-11 h-11 rounded-lg bg-black/40 border border-white/5 group-hover:border-color-accent-cyan/30 group-hover:bg-black/60"
+                }`}
+              >
                 <ShortcutIcon
-                  className={`w-5 h-5 ${shortcut.color} group-hover:scale-1.1 transition-transform duration-200`}
+                  className={`${isMobile ? "w-6 h-6" : "w-5 h-5"} ${shortcut.color} group-hover:scale-1.1 transition-transform duration-200`}
                 />
               </div>
-              <span className="font-mono text-[10px] tracking-wide text-text-secondary group-hover:text-white transition-colors duration-200">
-                {shortcut.label}
+              <span
+                className={`font-mono tracking-wide transition-colors duration-200 ${
+                  isMobile
+                    ? "text-[11px] text-white font-medium drop-shadow-md"
+                    : "text-[10px] text-text-secondary group-hover:text-white"
+                }`}
+              >
+                {isMobile ? shortcut.label.split(".")[0] : shortcut.label}
               </span>
             </motion.button>
           );

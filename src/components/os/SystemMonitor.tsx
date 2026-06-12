@@ -28,7 +28,7 @@ export default function SystemMonitor() {
         <span className="text-[10px] font-mono text-text-dimmed">STATUS: ACTIVE</span>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* CPU Telemetry Card */}
         <div className="glass-panel p-4 flex flex-col gap-3">
           <div className="flex items-center justify-between text-text-muted">
