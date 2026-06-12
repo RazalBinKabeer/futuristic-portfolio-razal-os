@@ -30,7 +30,7 @@ interface OSStore {
   // System Actions
   bootOS: () => void;
   incrementBootSequence: () => void;
-  openWindow: (id: string) => void;
+  openWindow: (id: string, viewportWidth?: number, viewportHeight?: number) => void;
   closeWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
   maximizeWindow: (id: string) => void;
@@ -149,20 +149,43 @@ export const useOSStore = create<OSStore>((set, get) => ({
       bootSequenceIndex: state.bootSequenceIndex + 1,
     })),
 
-  openWindow: (id) =>
+  openWindow: (id, viewportWidth, viewportHeight) =>
     set((state) => {
       const nextZ = state.maxZIndex + 1;
       const window = state.windows[id];
       if (!window) return {};
+
+      let updates: Partial<WindowState> = {
+        isOpen: true,
+        isMinimized: false,
+        zIndex: nextZ,
+      };
+
+      if (viewportWidth !== undefined && viewportHeight !== undefined) {
+        if (viewportWidth < 768) {
+          updates = {
+            ...updates,
+            isMaximized: true,
+            position: { x: 0, y: 0 },
+            size: { width: viewportWidth, height: viewportHeight },
+          };
+        } else {
+          updates = {
+            ...updates,
+            position: {
+              x: Math.max(0, (viewportWidth - window.size.width) / 2),
+              y: Math.max(0, (viewportHeight - window.size.height) / 2),
+            },
+          };
+        }
+      }
 
       return {
         windows: {
           ...state.windows,
           [id]: {
             ...window,
-            isOpen: true,
-            isMinimized: false,
-            zIndex: nextZ,
+            ...updates,
           },
         },
         activeWindowId: id,

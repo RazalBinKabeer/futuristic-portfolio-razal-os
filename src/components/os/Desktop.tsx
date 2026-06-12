@@ -198,7 +198,7 @@ export default function Desktop() {
           return (
             <motion.button
               key={shortcut.id}
-              onClick={() => openWindow(shortcut.id)}
+              onClick={() => openWindow(shortcut.id, window.innerWidth, window.innerHeight)}
               whileHover={{ scale: 1.08, y: -3 }}
               whileTap={{ scale: 0.95 }}
               className="group flex flex-col items-center justify-center gap-2 w-24 h-24 rounded-xl bg-white/[0.02] border border-white/[0.04] backdrop-blur-[4px] hover:bg-white/[0.08] hover:border-color-accent-indigo/40 hover:shadow-[0_0_20px_rgba(99,102,241,0.2)] transition-all duration-200 cursor-pointer text-center select-none shadow-lg"
