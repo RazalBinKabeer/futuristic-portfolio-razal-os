@@ -204,7 +204,7 @@ export default function Desktop() {
       </div>
 
       {/* Auto Pilot Toggle Button */}
-      <div className="absolute top-6 right-6 z-[100] pointer-events-auto">
+      <div className="absolute top-6 right-6 z-[15] pointer-events-auto">
         <button
           id="autopilot-toggle"
           onClick={() => toggleAutoPilot()}
