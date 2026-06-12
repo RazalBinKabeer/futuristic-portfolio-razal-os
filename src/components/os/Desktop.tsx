@@ -12,6 +12,7 @@ import ContactForm from "./ContactForm";
 import Career from "./Career";
 import Certifications from "./Certifications";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   Terminal as TermIcon,
   Activity,
@@ -284,11 +285,12 @@ export default function Desktop() {
           <WindowFrame id="bio">
             <div className="w-full h-full p-6 bg-black/30 flex flex-col gap-6 overflow-auto font-sans">
               <div className="flex items-center gap-4 border-b border-white/5 pb-4">
-                <div className="w-12 h-12 rounded-full border-2 border-color-accent-indigo overflow-hidden shrink-0 flex items-center justify-center">
-                  <img
+                <div className="relative w-12 h-12 rounded-full border-2 border-color-accent-indigo overflow-hidden shrink-0 flex items-center justify-center">
+                  <Image
                     src="/dp.png"
                     alt="Razal Kabeer"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 <div>

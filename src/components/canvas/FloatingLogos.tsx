@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface LogoNode {
   id: string;
@@ -170,13 +171,14 @@ export default function FloatingLogos() {
             whileHover={{ scale: 1.25 }}
             whileTap={{ scale: 0.85 }}
             onClick={() => handleLogoClick(logo.id)}
-            className="w-full h-full flex items-center justify-center bg-transparent border-none outline-none cursor-pointer focus:outline-none"
+            className="relative w-full h-full flex items-center justify-center bg-transparent border-none outline-none cursor-pointer focus:outline-none"
             title={logo.name}
           >
-            <img 
-              src={logo.src} 
-              alt={logo.name} 
-              className="w-full h-full object-contain pointer-events-none opacity-40 hover:opacity-90 transition-opacity duration-300 select-none filter drop-shadow-[0_0_8px_rgba(99,102,241,0.2)]"
+            <Image
+              src={logo.src}
+              alt={logo.name}
+              fill
+              className="object-contain pointer-events-none opacity-40 hover:opacity-90 transition-opacity duration-300 select-none filter drop-shadow-[0_0_8px_rgba(99,102,241,0.2)]"
             />
           </motion.button>
         </div>
