@@ -26,6 +26,7 @@ interface OSStore {
   terminalHistory: CommandHistoryItem[];
   bootSequenceIndex: number;
   maxZIndex: number;
+  isAutoPilotMode: boolean;
 
   // System Actions
   bootOS: (isMobile?: boolean) => void;
@@ -44,6 +45,8 @@ interface OSStore {
   executeCommand: (cmd: string, output: string) => void;
   tickMetrics: () => void;
   clearTerminal: () => void;
+  toggleAutoPilot: () => void;
+  setAutoPilotMode: (mode: boolean) => void;
 }
 
 const defaultWindows: Record<string, WindowState> = {
@@ -145,6 +148,7 @@ export const useOSStore = create<OSStore>((set, get) => ({
   ],
   bootSequenceIndex: 0,
   maxZIndex: 10,
+  isAutoPilotMode: false,
   bootOS: (isMobile?: boolean) =>
     set((state) => {
       if (isMobile) {
@@ -336,4 +340,8 @@ export const useOSStore = create<OSStore>((set, get) => ({
     }),
 
   clearTerminal: () => set({ terminalHistory: [] }),
+
+  toggleAutoPilot: () => set((state) => ({ isAutoPilotMode: !state.isAutoPilotMode })),
+  
+  setAutoPilotMode: (mode) => set({ isAutoPilotMode: mode }),
 }));

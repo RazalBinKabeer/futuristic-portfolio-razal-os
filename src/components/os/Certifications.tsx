@@ -1,6 +1,7 @@
 "use client";
 
 import { Award, ShieldCheck, Calendar, ExternalLink, ShieldAlert } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface Certification {
   title: string;
@@ -55,8 +56,12 @@ export default function Certifications() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {certifications.map((cert, idx) => (
-          <div 
+          <motion.div 
             key={idx} 
+            initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10px" }}
+            transition={{ duration: 0.4, delay: (idx % 2) * 0.1 }}
             className={`glass-panel p-5 rounded-xl border flex flex-col gap-4 transition-all duration-300 ${cert.color}`}
           >
             <div className="flex items-start justify-between gap-3">
@@ -93,7 +98,7 @@ export default function Certifications() {
                 Verify Credential <ExternalLink className="w-3.5 h-3.5 text-color-accent-cyan" />
               </a>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
