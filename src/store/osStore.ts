@@ -30,7 +30,11 @@ interface OSStore {
   // System Actions
   bootOS: (isMobile?: boolean) => void;
   incrementBootSequence: () => void;
-  openWindow: (id: string, viewportWidth?: number, viewportHeight?: number) => void;
+  openWindow: (
+    id: string,
+    viewportWidth?: number,
+    viewportHeight?: number,
+  ) => void;
   closeWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
   maximizeWindow: (id: string) => void;
@@ -60,8 +64,8 @@ const defaultWindows: Record<string, WindowState> = {
     isMinimized: false,
     isMaximized: false,
     zIndex: 5,
-    position: { x: 740, y: 80 },
-    size: { width: 420, height: 320 },
+    position: { x: 500, y: 80 },
+    size: { width: 680, height: 480 },
   },
   projects: {
     id: "projects",
