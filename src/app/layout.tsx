@@ -3,7 +3,7 @@ import { Providers } from "./providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Razal.OS // Synaptic Intelligence Terminal",
+  title: "Razal.OS  Synaptic Intelligence Terminal",
   description:
     "Futuristic developer portfolio modeled as an AI Operating System interface. Built using Next.js 15, React 19, Three.js, Framer Motion, and GSAP.",
 };
