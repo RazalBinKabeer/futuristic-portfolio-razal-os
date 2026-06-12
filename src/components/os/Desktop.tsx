@@ -192,7 +192,7 @@ export default function Desktop() {
         )}
 
         <FloatingLogos />
-        <div className="absolute inset-0 w-full h-full opacity-60">
+        <div className="absolute inset-0 w-full h-full opacity-60 pointer-events-none">
           <SynapticCore />
         </div>
       </div>
