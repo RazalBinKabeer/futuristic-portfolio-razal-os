@@ -14,6 +14,7 @@ import Certifications from "./Certifications";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useDevice } from "@/hooks/useDevice";
+import { useAutoPilot } from "@/hooks/useAutoPilot";
 import {
   Terminal as TermIcon,
   Activity,
@@ -29,13 +30,18 @@ import {
   Phone,
   MapPin,
   Download,
+  Play,
+  Square,
 } from "lucide-react";
 
 export default function Desktop() {
+  useAutoPilot();
   const windows = useOSStore((state) => state.windows);
   const openWindow = useOSStore((state) => state.openWindow);
   const booted = useOSStore((state) => state.booted);
   const bootOS = useOSStore((state) => state.bootOS);
+  const isAutoPilotMode = useOSStore((state) => state.isAutoPilotMode);
+  const toggleAutoPilot = useOSStore((state) => state.toggleAutoPilot);
   const device = useDevice();
   const isMobile = device === "mobile";
 
@@ -195,6 +201,35 @@ export default function Desktop() {
         <div className="absolute inset-0 w-full h-full opacity-60 pointer-events-none">
           <SynapticCore />
         </div>
+      </div>
+
+      {/* Auto Pilot Toggle Button */}
+      <div className="absolute top-6 right-6 z-[100] pointer-events-auto">
+        <button
+          id="autopilot-toggle"
+          onClick={() => toggleAutoPilot()}
+          className={`flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md border transition-all duration-300 shadow-lg ${
+            isAutoPilotMode
+              ? "bg-color-accent-indigo/20 border-color-accent-indigo/50 text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]"
+              : "bg-white/[0.03] border-white/[0.1] text-text-muted hover:bg-white/[0.08] hover:text-white"
+          }`}
+        >
+          {isAutoPilotMode ? (
+            <>
+              <Square className="w-4 h-4 text-red-400" />
+              <span className="font-mono text-xs font-semibold text-color-accent-cyan animate-pulse">
+                AUTO_PILOT: ON
+              </span>
+            </>
+          ) : (
+            <>
+              <Play className="w-4 h-4 text-color-accent-cyan" />
+              <span className="font-mono text-xs font-semibold">
+                AUTO_PILOT
+              </span>
+            </>
+          )}
+        </button>
       </div>
 
       {/* 2. Desktop Shortcut Icons Grid */}

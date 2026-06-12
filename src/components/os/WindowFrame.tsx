@@ -151,6 +151,7 @@ export default function WindowFrame({ id, children }: WindowFrameProps) {
 
         {/* Window Body Container */}
         <div
+          id={`window-scroll-container-${id}`}
           className="flex-grow overflow-auto bg-black/[0.1] text-text-secondary relative"
           data-lenis-prevent
         >
