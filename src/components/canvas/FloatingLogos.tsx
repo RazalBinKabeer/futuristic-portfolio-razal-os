@@ -63,7 +63,7 @@ export default function FloatingLogos() {
       y,
       vx,
       vy,
-      size: 64 // Bubble size
+      size: window.innerWidth < 768 ? 48 : 64 // Smaller on mobile
     };
   };
 
