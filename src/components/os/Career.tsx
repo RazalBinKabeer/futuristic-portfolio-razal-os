@@ -21,6 +21,25 @@ interface CareerPosition {
 export default function Career() {
   const experiences: CareerPosition[] = [
     {
+      role: "Freelance Frontend Engineer",
+      company: "Independent Contracts",
+      location: "Dubai, UAE",
+      period: "May 2026 -- Present",
+      projects: [
+        {
+          name: "HorecaHub E-Commerce Platform",
+          tech: "Next.js, TypeScript, i18n, REST APIs",
+          link: "https://horecahub.ae/",
+          points: [
+            "Developed and maintained a multilingual B2B e-commerce platform for hospitality businesses using Next.js.",
+            "Built barcode scanning functionality to enable faster product discovery and ordering workflows.",
+            "Integrated voice recognition capabilities allowing users to search products and add items to cart.",
+            "Implemented location detection and role-based routing systems to support permissions and account types."
+          ]
+        }
+      ]
+    },
+    {
       role: "Associate Software Developer",
       company: "WebandCrafts (WAC)",
       location: "Kerala, India",
