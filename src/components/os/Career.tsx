@@ -1,7 +1,7 @@
 "use client";
 
-import { Calendar, Briefcase, ExternalLink, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Calendar, Briefcase, ExternalLink, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface ProjectDetail {
   name: string;
@@ -21,25 +21,6 @@ interface CareerPosition {
 export default function Career() {
   const experiences: CareerPosition[] = [
     {
-      role: "Freelance Frontend Engineer",
-      company: "Independent Contracts",
-      location: "Dubai, UAE",
-      period: "May 2026 -- Present",
-      projects: [
-        {
-          name: "HorecaHub E-Commerce Platform",
-          tech: "Next.js, TypeScript, i18n, REST APIs",
-          link: "https://horecahub.ae/",
-          points: [
-            "Developed and maintained a multilingual B2B e-commerce platform for hospitality businesses using Next.js.",
-            "Built barcode scanning functionality to enable faster product discovery and ordering workflows.",
-            "Integrated voice recognition capabilities allowing users to search products and add items to cart.",
-            "Implemented location detection and role-based routing systems to support permissions and account types."
-          ]
-        }
-      ]
-    },
-    {
       role: "Associate Software Developer",
       company: "WebandCrafts (WAC)",
       location: "Kerala, India",
@@ -50,16 +31,16 @@ export default function Career() {
           tech: "React, TanStack Query, Zustand, Formik, Context API, Sockets",
           points: [
             "Led frontend development for an enterprise dashboard handling operational workflows.",
-            "Integrated real-time updates using socket-based communication to improve live operational visibility."
-          ]
+            "Integrated real-time updates using socket-based communication to improve live operational visibility.",
+          ],
         },
         {
           name: "VGuard Charity Management Application",
           tech: "React, SWR, Formik, Jotai, Context API, Sockets",
           points: [
             "Served as Frontend Lead Developer implementing role-based UI previews and installment splitting/merging tools.",
-            "Developed a dynamic form builder system allowing administrators to create and manage custom forms."
-          ]
+            "Developed a dynamic form builder system allowing administrators to create and manage custom forms.",
+          ],
         },
         {
           name: "Middlesex University Dubai Official Website",
@@ -67,18 +48,18 @@ export default function Career() {
           link: "https://mdx.ac.ae/",
           points: [
             "Developed and maintained large-scale university web platform supporting 1500+ dynamic page architectures.",
-            "Implemented server-side rendering (SSR) strategies to improve SEO performance and page load speed."
-          ]
+            "Implemented server-side rendering (SSR) strategies to improve SEO performance and page load speed.",
+          ],
         },
         {
           name: "IKEA Food Platform",
           tech: "React, Magento, GraphQL",
           link: "https://food.ikea.ae/",
           points: [
-            "Built a dynamic ordering platform with optimized cart, checkout flows, and GraphQL API integrations."
-          ]
-        }
-      ]
+            "Built a dynamic ordering platform with optimized cart, checkout flows, and GraphQL API integrations.",
+          ],
+        },
+      ],
     },
     {
       role: "Frontend Developer",
@@ -92,10 +73,10 @@ export default function Career() {
           link: "https://wfpumps.com/",
           points: [
             "Developed and maintained corporate web platform showcasing industrial products and technical catalogs.",
-            "Improved frontend performance through asset optimization and responsive rendering strategies."
-          ]
-        }
-      ]
+            "Improved frontend performance through asset optimization and responsive rendering strategies.",
+          ],
+        },
+      ],
     },
     {
       role: "Junior Web Developer",
@@ -109,32 +90,36 @@ export default function Career() {
           link: "https://moishi.com/",
           points: [
             "Developed responsive Shopify storefront interfaces for a multi-region dessert brand.",
-            "Optimized customer shopping experiences and mobile layouts across devices."
-          ]
+            "Optimized customer shopping experiences and mobile layouts across devices.",
+          ],
         },
         {
           name: "Technoid Corporate Website",
           tech: "HTML5, CSS3, JavaScript, asset delivery optimization",
           link: "https://technoid.ae/",
           points: [
-            "Developed and maintained the company corporate website, improving frontend responsiveness."
-          ]
-        }
-      ]
-    }
+            "Developed and maintained the company corporate website, improving frontend responsiveness.",
+          ],
+        },
+      ],
+    },
   ];
 
   return (
     <div className="w-full h-full p-6 bg-black/30 flex flex-col gap-6 overflow-auto font-sans">
       <div className="border-b border-white/5 pb-3">
-        <h4 className="h4 text-sm font-mono tracking-wide text-white">CAREER CHRONOLOGY // WORK EXPERIENCE</h4>
-        <p className="text-[10px] text-text-dimmed mt-1">Timeline logs of professional software engineering contracts</p>
+        <h4 className="h4 text-sm font-mono tracking-wide text-white">
+          CAREER CHRONOLOGY // WORK EXPERIENCE
+        </h4>
+        <p className="text-[10px] text-text-dimmed mt-1">
+          Timeline logs of professional software engineering contracts
+        </p>
       </div>
 
       <div className="relative border-l border-white/10 pl-6 ml-3 flex flex-col gap-8">
         {experiences.map((exp, idx) => (
-          <motion.div 
-            key={idx} 
+          <motion.div
+            key={idx}
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-10px" }}
@@ -170,12 +155,20 @@ export default function Career() {
             {/* Projects list */}
             <div className="flex flex-col gap-4 mt-2">
               {exp.projects.map((proj, pIdx) => (
-                <div key={pIdx} className="glass-panel p-4 rounded-lg flex flex-col gap-2 hover:border-white/10 transition-colors duration-200">
+                <div
+                  key={pIdx}
+                  className="glass-panel p-4 rounded-lg flex flex-col gap-2 hover:border-white/10 transition-colors duration-200"
+                >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-1.5">
                     <span className="text-xs font-semibold text-white font-mono flex items-center gap-1">
                       {proj.name}
                       {proj.link && (
-                        <a href={proj.link} target="_blank" rel="noopener noreferrer" className="text-color-accent-indigo hover:text-color-accent-cyan transition-colors">
+                        <a
+                          href={proj.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-color-accent-indigo hover:text-color-accent-cyan transition-colors"
+                        >
                           <ExternalLink className="w-3 h-3 inline ml-0.5" />
                         </a>
                       )}
